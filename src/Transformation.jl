@@ -216,6 +216,10 @@ function Base.:*(a::Real, b::Quat)::Quat
     )
 end
 
+function dot(a::Quat, b::Quat)::Real
+    a.w * b.w + a.x * b.x + a.y * b.y + a.z * b.z
+end
+
 function Base.:/(a::Quat, b::Real)::Quat
     Quat(
         a.w / b,
