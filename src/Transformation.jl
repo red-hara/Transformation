@@ -1,6 +1,6 @@
 module Transformation
 
-export Vec, Quat, Transf, dot, cross, magnitude, norm, ×
+export Vec, Quat, Transf, dot, cross, magnitude, norm, ×, slerp
 
 """
     Vec - three dimensional vector.
@@ -263,6 +263,26 @@ Compute the unit quaternion colinear to the given one.
 """
 function unit(a::Quat)::Quat
     a / norm(a)
+end
+
+function slerp(a::Quat, b::Quat, t)::Quat
+    d = dot(a, b)
+    if d < 0
+        b = -b
+        d = -d
+    end
+    if d > 0.9995
+        result = a + (a - b) * t
+        return norm(result)
+    end
+    theta0 = acos(d)
+    theta = theta0 * t
+    sinTheta = sin(theta)
+    sinTheta0 = sin(theta0)
+
+    s1 = sinTheta / sinTheta0
+    s0 = cos(theta) - d * s1
+    return a * s0 + b * s1
 end
 
 """
