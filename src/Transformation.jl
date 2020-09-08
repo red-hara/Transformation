@@ -1,6 +1,6 @@
 module Transformation
 
-export Vec, Quat, Transf, dot, cross, magnitude, norm, ×, slerp
+export Vec, Quat, Transf, dot, cross, magnitude, norm, ×, slerp, unit
 
 """
     Vec - three dimensional vector.
